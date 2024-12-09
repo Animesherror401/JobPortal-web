@@ -93,9 +93,6 @@ This project demonstrates a basic user authentication system using Firebase. It 
 
 ---
 
-Here's the Future Improvements section formatted properly for a README.md file:
-
-
 ## Future Improvements 
 ### Functional Improvements  
 - **Email Verification**:  
