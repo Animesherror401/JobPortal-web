@@ -92,6 +92,11 @@ This project demonstrates a basic user authentication system using Firebase. It 
    - Successful login will show a success message.
 
 ---
+
+Here's the Future Improvements section formatted properly for a README.md file:
+
+
+## Future Improvements 
 ### Functional Improvements  
 - **Email Verification**:  
   Implement email verification during registration for added security.  
