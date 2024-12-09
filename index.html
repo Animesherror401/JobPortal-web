@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">Job Portal</div>
+        </header>
+        <main>
+            <div class="auth-form">
+                <h2>Register</h2>
+                <form id="register-form">
+                    <div class="input-group">
+                        <input type="text" id="register-username" placeholder="Username" required>
+                    </div>
+                    <div class="input-group">
+                        <input type="email" id="register-email" placeholder="Email" required>
+                    </div>
+                    <div class="input-group">
+                        <input type="password" id="register-password" placeholder="Password" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="role">Role:</label>
+                        <select id="role" required>
+                            <option value="job-seeker">Job Seeker</option>
+                            <option value="employer">Employer</option>
+                            <option value="admin">Administrator</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="auth-button">Register</button>
+                </form>
+                <div class="login-link">
+                    Already have an account? <a href="login.html">Login</a>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDQV3GEG6NsuxH3OJgjcd0blak5tRsO89g",
+            authDomain: "loginform-dbe79.firebaseapp.com",
+            projectId: "loginform-dbe79",
+            storageBucket: "loginform-dbe79.appspot.com",
+            messagingSenderId: "615553042710",
+            appId: "1:615553042710:web:e6f0264a9506c02e1fa837"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
+        document.getElementById("register-form").addEventListener('submit', function (e) {
+            e.preventDefault();
+            const username = document.getElementById("register-username").value;
+            const email = document.getElementById("register-email").value;
+            const password = document.getElementById("register-password").value;
+            const role = document.getElementById("role").value;
+
+            set(ref(db, 'users/' + username), {
+                Username: username,
+                Email: email,
+                Password: password,
+                Role: role
+            }).then(() => {
+                alert("Registration Successful!");
+                window.location.href = 'login.html';
+            }).catch((error) => {
+                console.error(error);
+                alert("Error registering user.");
+            });
+        });
+    </script>
+</body>
+</html>

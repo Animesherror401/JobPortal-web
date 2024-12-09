@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">Job Portal</div>
+        </header>
+        <main>
+            <div class="auth-form">
+                <h2>Login</h2>
+                <form id="login-form">
+                    <div class="input-group">
+                        <input type="text" id="login-username" placeholder="Username" required>
+                    </div>
+                    <div class="input-group">
+                        <input type="password" id="login-password" placeholder="Password" required>
+                    </div>
+                    <button type="submit" class="auth-button">Login</button>
+                </form>
+                <div class="register-link">
+                    Don't have an account? <a href="index.html">Register</a>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDQV3GEG6NsuxH3OJgjcd0blak5tRsO89g",
+            authDomain: "loginform-dbe79.firebaseapp.com",
+            projectId: "loginform-dbe79",
+            storageBucket: "loginform-dbe79.appspot.com",
+            messagingSenderId: "615553042710",
+            appId: "1:615553042710:web:e6f0264a9506c02e1fa837"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
+        document.getElementById("login-form").addEventListener('submit', function (e) {
+            e.preventDefault();
+            const username = document.getElementById("login-username").value;
+            const password = document.getElementById("login-password").value;
+
+            get(ref(db, `users/${username}`)).then((snapshot) => {
+                if (snapshot.exists()) {
+                    const userData = snapshot.val();
+                    if (userData.Password === password) {
+                        sessionStorage.setItem('username', username);
+                        sessionStorage.setItem('role', userData.Role);
+                        window.location.href = 'dashboard.html';
+                    } else {
+                        alert("Incorrect password. Please try again.");
+                    }
+                } else {
+                    alert("User does not exist. Please register first.");
+                }
+            }).catch((error) => {
+                console.error(error);
+                alert("Error logging in.");
+            });
+        });
+    </script>
+</body>
+</html>

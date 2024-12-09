@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Listings - Job Portal</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">Job Portal</div>
+            <nav>
+                <a href="dashboard.html">Dashboard</a>
+                <a href="profile.html">Profile</a>
+                <a href="applications.html">Applications</a>
+                <a href="#" id="logout-link">Logout</a>
+            </nav>
+        </header>
+        <main>
+            <h1>Job Listings</h1>
+            <input type="text" id="search" placeholder="Search for jobs..." />
+            <div id="job-listings">
+                <!-- Job listings will be dynamically loaded here -->
+            </div>
+        </main>
+    </div>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getDatabase, ref, get, child } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDQV3GEG6NsuxH3OJgjcd0blak5tRsO89g",
+            authDomain: "loginform-dbe79.firebaseapp.com",
+            projectId: "loginform-dbe79",
+            storageBucket: "loginform-dbe79.appspot.com",
+            messagingSenderId: "615553042710",
+            appId: "1:615553042710:web:e6f0264a9506c02e1fa837"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
+        document.getElementById("logout-link").addEventListener('click', function (e) {
+            e.preventDefault();
+            // Handle logout process
+            alert("Logged out successfully!");
+            window.location.href = 'login.html';
+        });
+
+        document.getElementById("search").addEventListener('input', function (e) {
+            const searchValue = e.target.value.toLowerCase();
+            loadJobListings(searchValue);
+        });
+
+        function loadJobListings(searchValue = '') {
+            get(child(ref(db), 'jobs')).then((snapshot) => {
+                if (snapshot.exists()) {
+                    const jobs = snapshot.val();
+                    let jobListingsHTML = '<ul>';
+                    for (const jobId in jobs) {
+                        const job = jobs[jobId];
+                        if (job.title.toLowerCase().includes(searchValue) || job.company.toLowerCase().includes(searchValue)) {
+                            jobListingsHTML += `<li>${job.title} at ${job.company} - ${job.location}</li>`;
+                        }
+                    }
+                    jobListingsHTML += '</ul>';
+                    document.getElementById("job-listings").innerHTML = jobListingsHTML;
+                } else {
+                    document.getElementById("job-listings").innerHTML = '<p>No job listings found.</p>';
+                }
+            }).catch((error) => {
+                console.error(error);
+                document.getElementById("job-listings").innerHTML = '<p>Error loading job listings.</p>';
+            });
+        }
+
+        // Load all job listings on page load
+        loadJobListings();
+    </script>
+</body>
+
+</html>
