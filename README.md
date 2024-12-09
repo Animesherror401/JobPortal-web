@@ -71,7 +71,13 @@ This project demonstrates a basic user authentication system using Firebase. It 
 ---
 
 ## File Structure
-├── index.html # Login page ├── register.html # Registration page ├── styles.css # Styling for the project ├── firebase-config.js # Firebase configuration and initialization ├── script.js # JavaScript logic for authentication ├── README.md # Documentation for the project
+├── index.html            # Login page
+├── register.html         # Registration page
+├── styles.css            # Styling for the project
+├── firebase-config.js    # Firebase configuration and initialization
+├── script.js             # JavaScript logic for authentication
+├── README.md             # Documentation for the project
+
 ---
 
 ## How to Use
@@ -86,17 +92,26 @@ This project demonstrates a basic user authentication system using Firebase. It 
    - Successful login will show a success message.
 
 ---
-## Future Improvements
-**Functional Improvements**
-   -Email Verification: Implement email verification during registration for added security.
-   -Password Reset: Allow users to reset their password via email.
-   -Role-Based Access: Introduce roles such as admin and user to manage access levels.
-   -Improved Error Handling: Add detailed error messages for common issues like invalid input or weak passwords.
-   -OAuth Integration: Enable users to log in via Google, Facebook, or other third-party providers.
-**UI/UX Enhancements**
-   -Responsive Design: Make the interface mobile-friendly and visually appealing.
-   -Dynamic Feedback: Add real-time validation and feedback for form inputs.
-   -Progress Indicators: Display loaders or progress bars during API calls.
+### Functional Improvements  
+- **Email Verification**:  
+  Implement email verification during registration for added security.  
+- **Password Reset**:  
+  Allow users to reset their password via email.  
+- **Role-Based Access**:  
+  Introduce roles such as admin and user to manage access levels.  
+- **Improved Error Handling**:  
+  Add detailed error messages for common issues like invalid input or weak passwords.  
+- **OAuth Integration**:  
+  Enable users to log in via Google, Facebook, or other third-party providers.  
+
+### UI/UX Enhancements  
+- **Responsive Design**:  
+  Make the interface mobile-friendly and visually appealing.  
+- **Dynamic Feedback**:  
+  Add real-time validation and feedback for form inputs.  
+- **Progress Indicators**:  
+  Display loaders or progress bars during API calls to improve user experience.  
+
 
 ## Firebase Configuration
 Replace the placeholder in `firebase-config.js` with your Firebase project configuration:
